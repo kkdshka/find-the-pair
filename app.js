@@ -1,11 +1,13 @@
-import {GameController} from "./controller/GameController";
+import {GameController} from "./game/GameController";
+import {GameModel} from "./game/GameModel";
+import {GameView} from "./game/GameView";
 import {ScoreController} from "./controller/ScoreController";
 import {SettingsController} from "./controller/SettingsController";
 
 export class App {
     constructor() {
         this.settingsController = new SettingsController();
-        this.gameController = new GameController();
+        this.gameController = new GameController(new GameView(), new GameModel());
         this.scoreController = new ScoreController();
     }
 

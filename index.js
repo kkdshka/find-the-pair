@@ -1,4 +1,6 @@
 import {App} from "./app";
 
-const app = new App;
-window.onload = () => app.run();
+window.onload = () => {
+    const app = new App;
+    app.run();
+}
