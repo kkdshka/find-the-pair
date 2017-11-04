@@ -1,16 +1,6 @@
-.pause_button {
-    height: 16px;
-    width: 16px;
-}
-
-.cards_field {
-    background-color: bisque;
-}
-
 .card {
     height: 128px;
     width: 128px;
-    background-color: burlywood;
     margin: 5px;
 }
 
@@ -18,8 +8,18 @@
     background-color: bisque;
 }
 
-.timer {
+.stopwatch {
     display: flex;
     flex-direction: row;
     align-items: center;
+    z-index: 3;
+}
+
+.blocker {
+    position: absolute;
+    width: 600px;
+    height: 750px;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
 }

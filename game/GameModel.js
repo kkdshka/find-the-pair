@@ -1,18 +1,16 @@
 export class GameModel {
-    constructor() {
+    constructor(size = '4 x 4', color = 'beige', cardsBack = 'burlywood') {
         this.cardsFaces = [
-            "white", "white",
-            "black", "black",
-            "red", "red",
-            "blue", "blue",
-            "orange", "orange",
-            "green", "green",
-            "fuchsia", "fuchsia",
-            "pink", "pink",
+            "white", "black", "red", "blue",
+            "orange", "green", "fuchsia", "pink",
+            "gold",
         ];
+        this.fieldSize = size.substr(0, 1);
+        this.fieldColor = color;
+        this.cardsBack = cardsBack;
     }
 
-    shuffle(cards) {
+    shuffleCards(cards) {
         let m = cards.length, t, i;
         while (m) {
             i = Math.floor(Math.random() * m--);

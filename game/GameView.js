@@ -5,10 +5,11 @@ export class GameView {
         this.cardPairsOnTable = 0;
     }
 
-    createField(cards, size = 4) {
+    createField(cards, size = 4, color = 'bisque') {
         this.cardPairsOnTable = ( size * size ) / 2;
         const table = document.createElement('table');
         table.className = "cards_field";
+        table.style.backgroundColor = color;
         this.container.appendChild(table);
         for (let i = 0; i < size; i++) {
             const tr = document.createElement('tr');
@@ -21,11 +22,16 @@ export class GameView {
         }
     }
 
-    prepareCards(cardsFaces) {
-        return cardsFaces.map((cardFace) => {
+    prepareCards(cardsFaces, cardsBack = 'burlywood', fieldSize = 4) {
+        const cardsAmount = fieldSize * fieldSize;
+        const faces = cardsFaces.splice(0, (cardsAmount / 2));
+        const allCardFaces = faces.concat(faces);
+        return allCardFaces.map((cardFace) => {
             const card = document.createElement('div');
             card.className = 'card';
             card.dataset.cardFace = cardFace;
+            card.dataset.cardBack = cardsBack;
+            card.style.backgroundColor = cardsBack;
             return card;
         });
     }
@@ -41,7 +47,7 @@ export class GameView {
                     if (this.flippedCards[0].getAttribute('data-card-face') === this.flippedCards[1].getAttribute('data-card-face')) {
                         this.discard(this.flippedCards);
                         this.cardPairsOnTable--;
-                        this.win();
+                        this.checkWin();
                         this.flippedCards = [];
                     } else {
                         this.reverse(this.flippedCards);
@@ -67,16 +73,14 @@ export class GameView {
         setTimeout(function () {
             cards.forEach((card) => {
                 card.className = 'card';
-                card.style.backgroundColor = 'burlywood';
+                card.style.backgroundColor = card.getAttribute('data-card-back');
             });
         }, 500);
     }
 
-    win() {
-        if (this.cardPairsOnTable === 8) {
-            const text = document.createElement('span');
-            text.innerHTML = "You win!";
-            this.container.appendChild(text);
+    checkWin() {
+        if (this.cardPairsOnTable === 0) {
+            this.onWin();
         }
     }
 

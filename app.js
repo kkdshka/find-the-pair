@@ -1,14 +1,11 @@
 import {GameController} from "./game/GameController";
-import {GameModel} from "./game/GameModel";
-import {GameView} from "./game/GameView";
 import {ScoreController} from "./controller/ScoreController";
-import {SettingsController} from "./controller/SettingsController";
 
 export class App {
     constructor() {
-        this.settingsController = new SettingsController();
-        this.gameController = new GameController(new GameView(), new GameModel());
+        this.gameController = new GameController();
         this.scoreController = new ScoreController();
+        this.container = document.getElementById('container');
     }
 
     run() {
@@ -17,21 +14,26 @@ export class App {
     }
 
     reference() {
-        const container = document.getElementById('container');
-        container.childNodes.forEach((child) => container.removeChild(child));
+        this.clearContainer();
         switch (window.location.hash) {
             case '#settings':
-                this.settingsController.run();
+                this.gameController.runSettings();
                 break;
             case '#game':
-                this.gameController.run();
+                this.gameController.runGame();
                 break;
             case '#score':
                 this.scoreController.run();
                 break;
             default:
-                this.settingsController.run();
+                this.gameController.runSettings();
                 break;
+        }
+    }
+
+    clearContainer() {
+        while (this.container.firstChild) {
+            this.container.removeChild(this.container.firstChild);
         }
     }
 
