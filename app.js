@@ -1,5 +1,5 @@
 import {GameController} from "./game/GameController";
-import {ScoreController} from "./controller/ScoreController";
+import {ScoreController} from "./score/ScoreController";
 
 export class App {
     constructor() {

@@ -16,14 +16,12 @@ export class GameController {
     }
 
     runSettings() {
-        this.settingsView.addLink('Score');
         this.settingsView.createSettings();
     }
 
     runGame() {
         this.stopwatchView.renderStopwatch();
-        this.gameView.addLink('Settings');
-        this.gameView.addLink('Score');
+        this.gameView.addLinks();
         const cards = this.gameModel.shuffleCards(this.gameView.prepareCards(
             this.gameModel.cardsFaces,
             this.gameModel.cardsBack,
@@ -38,6 +36,17 @@ export class GameController {
         this.stopwatchView.startStopwatch();
         this.gameView.onWin = () => {
             this.stopwatchView.stopWatch();
+            const score = this.gameModel.calculateScore(this.gameView.clicks, this.stopwatch.pauseTime);
+            this.gameView.renderWinForm(score);
+            this.gameView.onSubmit = (name) => {
+                const dataToSave = {
+                    fieldSize: this.gameModel.fieldSize,
+                    name: name,
+                    date: (new Date()).toDateString(),
+                    score: score
+                };
+                this.gameModel.saveScoreData(dataToSave);
+            };
         };
     }
 }

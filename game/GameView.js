@@ -3,12 +3,14 @@ export class GameView {
         this.container = document.getElementById('container');
         this.flippedCards = [];
         this.cardPairsOnTable = 0;
+        this.clicks = 0;
     }
 
     createField(cards, size = 4, color = 'bisque') {
         this.cardPairsOnTable = ( size * size ) / 2;
         const table = document.createElement('table');
-        table.className = "cards_field";
+        table.className = `cards-field ${color}`;
+        table.id = 'cards-field';
         table.style.backgroundColor = color;
         this.container.appendChild(table);
         for (let i = 0; i < size; i++) {
@@ -39,6 +41,7 @@ export class GameView {
     setCardsListener(cards) {
         cards.forEach((card) => {
             card.onclick = () => {
+                this.clicks++;
                 if (card.className !== 'card flipped' && card.className !== 'card in-discard-pile') {
                     this.flip(card);
                     this.flippedCards.push(card);
@@ -80,14 +83,62 @@ export class GameView {
 
     checkWin() {
         if (this.cardPairsOnTable === 0) {
+            const blocker = document.getElementById('blocker');
+            blocker.style.display = 'block';
             this.onWin();
         }
     }
 
-    addLink(link) {
-        const a = document.createElement('a');
-        a.href = '#' + link.toLowerCase();
-        a.textContent = link;
-        this.container.appendChild(a);
+    renderWinForm(score) {
+        const form = document.createElement('div');
+        form.className = 'win-form';
+
+        const win = document.createElement('b');
+        win.innerHTML = 'You win!';
+
+        const name = document.createElement('input');
+        name.type = 'text';
+        name.placeholder = 'Enter your name';
+
+        const result = document.createElement('b');
+        result.innerHTML = `Your score: ${score}`;
+
+        const submit = document.createElement('input');
+        submit.type = 'submit';
+        submit.className = 'submit';
+        submit.value = 'Save score';
+        submit.onclick = () => {
+            this.onSubmit(name.value);
+            window.location.hash = 'settings';
+        };
+
+        form.appendChild(win);
+        form.appendChild(name);
+        form.appendChild(result);
+        form.appendChild(submit);
+        this.container.appendChild(form);
+    }
+
+    addP() {
+        return document.createElement('p');
+    }
+
+    addLinks() {
+        const links_wrapper = document.createElement('div');
+        links_wrapper.className = 'links-wrapper';
+        this.container.appendChild(links_wrapper);
+
+        const settings_link = document.createElement('a');
+        settings_link.className = 'link';
+        settings_link.href = '#settings';
+        settings_link.textContent = 'Settings';
+
+        const score_link = document.createElement('a');
+        score_link.className = 'link';
+        score_link.href = '#score';
+        score_link.textContent = 'Score';
+
+        links_wrapper.appendChild(settings_link);
+        links_wrapper.appendChild(score_link);
     }
 }

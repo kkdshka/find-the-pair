@@ -20,4 +20,14 @@ export class GameModel {
         }
         return cards;
     }
+
+    saveScoreData(scoreData) {
+        const allScoresData = JSON.parse(localStorage.getItem('score')) || [];
+        allScoresData.push(scoreData);
+        localStorage.setItem('score', JSON.stringify(allScoresData));
+    }
+
+    calculateScore(clicks, time) {
+        return Math.round(Math.pow(100, this.fieldSize) / ((clicks / 2) * (time / 1000)));
+    }
 }

@@ -1,12 +1,81 @@
-.card {
-    height: 128px;
-    width: 128px;
+/*common*/
+
+.container {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.links-wrapper {
     margin: 5px;
 }
 
-.in-discard-pile {
-    background-color: bisque;
+.link {
+    background-color: burlywood;
+    padding: 3px 15px;
+    color: white;
+    text-decoration: none;
+    margin: 5px 5px 5px 0;
 }
+
+.link:hover {
+    color: coral;
+}
+
+.submit {
+    background-color: burlywood;
+    color: white;
+    margin: 5px 5px 5px 0;
+    padding: 8px 15px;
+    border: none;
+    font-size: medium;
+    align-self: flex-end;
+}
+
+.submit:hover {
+    background-color: coral;
+}
+
+/*settings*/
+
+.settings-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: space-between;
+    border: 1px solid beige;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: antiqueWhite;
+    width: 350px;
+}
+
+.select-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;justify-content: space-between;
+    align-content: space-between;
+    align-self: stretch;
+
+}
+
+.select {
+    font-size: medium;
+    box-shadow: none;
+    align-self: flex-end;
+    background-color: white;
+    width: 120px;
+    border: 1px coral;
+}
+
+.select:focus {
+    outline: none;
+}
+
+/*Game*/
 
 .stopwatch {
     display: flex;
@@ -22,4 +91,77 @@
     z-index: 2;
     background-color: black;
     opacity: 0.5;
+}
+
+.cards-field.bisque {
+    background-color: bisque;
+}
+
+.card {
+    height: 128px;
+    width: 128px;
+    margin: 5px;
+}
+
+.in-discard-pile {
+    background-color: bisque;
+}
+
+.win-form {
+    height: 150px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    padding-left: 5px;
+    padding-right: 50px;
+    background-color: antiqueWhite;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 3;
+}
+
+.pause {
+    content:url("./data/pause.png");
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.resume {
+    content:url("./data/resume.png");
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+
+/*Score*/
+
+.filter {
+    background-color: antiquewhite;
+    padding: 0px 5px;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+
+.filter:hover {
+    background-color: cornsilk;
+}
+
+.score-table-wrapper {
+    background-color: antiquewhite;
+    border: 1px solid burlywood;
+    margin: 5px;
+}
+
+.score-table {
+    border-top: 1px solid burlywood;
+    border-collapse: collapse;
+}
+
+.cell {
+    border: 1px solid burlywood;
+    padding: 3px;
 }

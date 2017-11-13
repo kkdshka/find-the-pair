@@ -27,9 +27,7 @@ export class StopwatchView {
     }
 
     addPauseButton(parent) {
-        const button = document.createElement('input');
-        button.type = 'button';
-        button.value = 'pause';
+        const button = document.createElement('img');
         button.className = 'pause';
         button.onclick = () => {
             if (button.className === 'pause') {
