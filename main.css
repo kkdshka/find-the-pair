@@ -77,6 +77,11 @@
 
 /*Game*/
 
+.card {
+    height: 128px;
+    width: 128px;
+}
+
 .stopwatch {
     display: flex;
     flex-direction: row;
