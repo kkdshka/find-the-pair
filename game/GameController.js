@@ -10,7 +10,7 @@ export class GameController {
         this.settingsView.onGameStarted = (settings) => {
             this.gameModel = new GameModel(settings.fieldSize, settings.fieldColor, settings.cardsBack);
         };
-        this.gameView = new GameView;
+        this.gameView = new GameView(this.gameModel);
         this.stopwatch = new Stopwatch;
         this.stopwatchView = new StopwatchView(this.stopwatch);
     }
@@ -27,7 +27,6 @@ export class GameController {
             this.gameModel.cardsBack,
             this.gameModel.fieldSize
         ));
-        this.gameView.setCardsListener(cards);
         this.gameView.createField(
             cards,
             this.gameModel.fieldSize,

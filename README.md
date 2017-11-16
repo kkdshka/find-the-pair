@@ -29,4 +29,4 @@ Then find _index.html_ file and run it in your browser.
 
 Now I did not find out why _npm install_ does not install _babel-loader_.
 
-Also choosing field size and animation does not work.
+Also animation 'put card in discard pile' does not work.

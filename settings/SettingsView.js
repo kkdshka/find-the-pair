@@ -9,7 +9,7 @@ export class SettingsView {
         settingsWrapper.className = 'settings-wrapper';
         this.createSelect(settingsWrapper, 'field-size', 'Choose field size', ['2 x 2', '4 x 4', '6 x 6', '8 x 8', '10 x 10', '12 x 12']);
         this.createSelect(settingsWrapper, 'field-color', 'Choose game field color', ['bisque', 'aquamarine']);
-        this.createSelect(settingsWrapper, 'cards-back', 'Choose cards back', ['burlywood', 'indigo']);
+        this.createSelect(settingsWrapper, 'cards-back', 'Choose cards back', ['blue', 'pastel', 'rose']);
         this.createSubmit(settingsWrapper);
 
         this.container.appendChild(settingsWrapper);

@@ -102,12 +102,6 @@
     background-color: bisque;
 }
 
-.flipper {
-    height: 128px;
-    width: 128px;
-    margin: 5px;
-}
-
 .in-discard-pile {
     background-color: bisque;
 }
@@ -118,8 +112,7 @@
     flex-flow: column wrap;
     justify-content: space-between;
     align-content: space-between;
-    padding-left: 5px;
-    padding-right: 50px;
+    padding: 15px 50px 15px 15px;
     background-color: antiqueWhite;
     position: absolute;
     top: 50px;
@@ -141,6 +134,54 @@
     cursor: pointer;
 }
 
+/*Card*/
+
+.card-wrapper {
+    -webkit-perspective: 800;
+    position: relative;
+}
+
+.card-wrapper.large {
+    width: 100px;
+    height: 100px;
+}
+.card-wrapper.medium {
+    width: 55px;
+    height: 55px;
+}
+.card-wrapper.small {
+    width: 35px;
+    height: 35px;
+}
+.flipper.flipped {
+    -webkit-transform: rotateY(180deg);
+}
+.flipper {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+}
+.card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden ;
+    z-index: 2;
+}
+.back {
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+}
+.face {
+    -webkit-transform: rotateY(180deg);
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
 
 /*Score*/
 

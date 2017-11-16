@@ -1,21 +1,22 @@
 export class GameView {
-    constructor() {
+    constructor(gameModel) {
+        this.gameModel = gameModel;
         this.container = document.getElementById('container');
         this.flippedCards = [];
         this.cardPairsOnTable = 0;
         this.clicks = 0;
     }
 
-    createField(cards, size = 4, color = 'bisque') {
-        this.cardPairsOnTable = ( size * size ) / 2;
+    createField(cards, fieldSize, fieldColor) {
+        this.cardPairsOnTable = ( fieldSize * fieldSize ) / 2;
         const table = document.createElement('table');
-        table.className = `cards-field ${color}`;
+        table.className = `cards-field ${fieldColor}`;
         table.id = 'cards-field';
-        table.style.backgroundColor = color;
+        table.style.backgroundColor = fieldColor;
         this.container.appendChild(table);
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < fieldSize; i++) {
             const tr = document.createElement('tr');
-            for (let i = 0; i < size; i++) {
+            for (let i = 0; i < fieldSize; i++) {
                 const td = document.createElement('td');
                 td.appendChild(cards.shift());
                 tr.appendChild(td);
@@ -24,59 +25,99 @@ export class GameView {
         }
     }
 
-    prepareCards(cardsFaces, cardsBack = 'burlywood', fieldSize = 4) {
+    prepareCards(cardsFaces, cardsBack, fieldSize) {
         const cardsAmount = fieldSize * fieldSize;
         const faces = cardsFaces.splice(0, (cardsAmount / 2));
         const allCardFaces = faces.concat(faces);
         return allCardFaces.map((cardFace) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.dataset.cardFace = cardFace;
-            card.dataset.cardBack = cardsBack;
-            card.style.backgroundColor = cardsBack;
+            const card = this.createCard(cardFace, cardsBack);
+            this.setCardSize(card, fieldSize);
             return card;
         });
     }
 
-    setCardsListener(cards) {
-        cards.forEach((card) => {
-            card.onclick = () => {
-                this.clicks++;
-                if (card.className !== 'card flipped' && card.className !== 'card in-discard-pile') {
-                    this.flip(card);
-                    this.flippedCards.push(card);
-                }
-                if (this.flippedCards.length > 1) {
-                    if (this.flippedCards[0].getAttribute('data-card-face') === this.flippedCards[1].getAttribute('data-card-face')) {
-                        this.discard(this.flippedCards);
-                        this.cardPairsOnTable--;
-                        this.checkWin();
-                        this.flippedCards = [];
-                    } else {
-                        this.reverse(this.flippedCards);
-                        this.flippedCards = [];
-                    }
-                }
-            };
-        });
+    createCard(cardsFace, cardsBack) {
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'card-wrapper';
+
+        const flipper = document.createElement('div');
+        flipper.className = 'flipper';
+        flipper.dataset.cardName = cardsFace;
+        flipper.onclick = () => {
+            this.onClickCard(flipper);
+        };
+
+        const cardBack = document.createElement('div');
+        cardBack.className = 'card back';
+        const cardFace = document.createElement('div');
+        cardFace.className = 'card face';
+
+        const cardBackImage = document.createElement('img');
+        cardBackImage.src = cardsBack;
+        const cardFaceImage = document.createElement('img');
+        cardFaceImage.src = cardsFace;
+
+        cardBack.appendChild(cardBackImage);
+        cardFace.appendChild(cardFaceImage);
+        flipper.appendChild(cardBack);
+        flipper.appendChild(cardFace);
+        cardWrapper.appendChild(flipper);
+        return cardWrapper;
+    }
+
+    setCardSize(card, fieldSize) {
+        switch(fieldSize) {
+            case '2':
+            case '4':
+                card.className += ' large';
+                break;
+            case '6':
+            case '8':
+                card.className += ' medium';
+                break;
+            case '10':
+            case '12':
+                card.className += ' small';
+                break;
+            default:
+                card.className += ' medium';
+                break;
+        }
+    }
+
+    onClickCard(flipper) {
+        this.clicks++;
+        if (flipper.className !== 'flipper flipped' && flipper.className !== 'flipper in-discard-pile') {
+            this.flip(flipper);
+            this.flippedCards.push(flipper);
+        }
+        if (this.flippedCards.length > 1) {
+            if (this.flippedCards[0].getAttribute('data-card-name') === this.flippedCards[1].getAttribute('data-card-name')) {
+                this.discard(this.flippedCards);
+                this.cardPairsOnTable--;
+                this.checkWin();
+                this.flippedCards = [];
+            } else {
+                this.reverse(this.flippedCards);
+                this.flippedCards = [];
+            }
+        }
     }
 
     flip(card) {
         card.className += ' flipped';
-        card.style.backgroundColor = card.getAttribute('data-card-face');
     }
 
     discard(cards) {
         setTimeout(function () {
-            cards.forEach(card => card.className = 'card in-discard-pile');
+            // cards.forEach(card => card.className = 'flipper in-discard-pile');
         }, 500);
     }
 
     reverse(cards) {
         setTimeout(function () {
             cards.forEach((card) => {
-                card.className = 'card';
-                card.style.backgroundColor = card.getAttribute('data-card-back');
+                card.className = 'flipper';
             });
         }, 500);
     }
@@ -117,10 +158,6 @@ export class GameView {
         form.appendChild(result);
         form.appendChild(submit);
         this.container.appendChild(form);
-    }
-
-    addP() {
-        return document.createElement('p');
     }
 
     addLinks() {
