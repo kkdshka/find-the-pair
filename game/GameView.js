@@ -66,7 +66,7 @@ export class GameView {
     }
 
     setCardSize(card, fieldSize) {
-        switch(fieldSize) {
+        switch (fieldSize) {
             case '2':
             case '4':
                 card.className += ' large';
@@ -130,12 +130,13 @@ export class GameView {
         }
     }
 
-    renderWinForm(score) {
+    renderWinForm(score, errorMessage = '') {
         const form = document.createElement('div');
         form.className = 'win-form';
 
         const win = document.createElement('b');
         win.innerHTML = 'You win!';
+
 
         const name = document.createElement('input');
         name.type = 'text';
@@ -149,11 +150,20 @@ export class GameView {
         submit.className = 'submit';
         submit.value = 'Save score';
         submit.onclick = () => {
-            this.onSubmit(name.value);
-            window.location.hash = 'settings';
+            if (name.value) {
+                this.onSubmit(name.value);
+                window.location.hash = 'settings';
+            }
+            else {
+                this.renderWinForm(score, 'Enter your name!');
+            }
         };
 
         form.appendChild(win);
+        if (errorMessage) {
+            const error = this.createErrorMessage(errorMessage);
+            form.appendChild(error);
+        }
         form.appendChild(name);
         form.appendChild(result);
         form.appendChild(submit);
@@ -177,5 +187,12 @@ export class GameView {
 
         links_wrapper.appendChild(settings_link);
         links_wrapper.appendChild(score_link);
+    }
+
+    createErrorMessage(message = 'Error') {
+        const error = document.createElement('div');
+        error.innerHTML = message;
+        error.className = 'error';
+        return error;
     }
 }

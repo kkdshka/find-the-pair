@@ -50,7 +50,7 @@ export class GameModel {
     }
 
     calculateScore(clicks, time) {
-        return Math.round(Math.pow(100, this.fieldSize) / ((clicks / 2) * (time / 1000)));
+        return Math.round(Math.pow(10, this.fieldSize) / ((clicks / 2) * (time / 1000)));
     }
 
     pad(num, size) {

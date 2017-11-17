@@ -120,6 +120,12 @@
     z-index: 3;
 }
 
+.error {
+    background-color: lightpink;
+    color: crimson;
+    font-size: small;
+}
+
 .pause {
     content:url("./data/pause.png");
     width: 16px;
@@ -188,7 +194,7 @@ img {
 .filter {
     background-color: antiquewhite;
     padding: 0px 5px;
-    margin: 10px 5px;
+    margin: 10px 5px 0px 5px;
     cursor: pointer;
 }
 
