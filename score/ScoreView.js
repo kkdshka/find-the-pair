@@ -78,8 +78,10 @@ export class ScoreView {
             return element.fieldSize === fieldSize;
         });
 
+        const sortedData = filteredData.sort(this.compare);
+
         const table = document.getElementById('score-table');
-        filteredData.forEach((data) => {
+        sortedData.forEach((data) => {
             const tableRow = document.createElement('tr');
 
             const name = document.createElement('td');
@@ -97,5 +99,17 @@ export class ScoreView {
             tableRow.appendChild(date);
             table.appendChild(tableRow);
         });
+    }
+
+    compare(scoreData1, scoreData2) {
+        if(scoreData1.score > scoreData2.score) {
+            return -1;
+        }
+        if(scoreData1.score < scoreData2.score) {
+            return 1;
+        }
+        if(scoreData1.score === scoreData2.score) {
+            return 0;
+        }
     }
 }
