@@ -191,11 +191,20 @@ img {
 
 /*Score*/
 
+.filters-wrapper {
+    border-left: 1px solid burlywood;
+    border-top-left-radius: 5px;
+}
+
 .filter {
     background-color: antiquewhite;
     padding: 0px 5px;
-    margin: 10px 5px 0px 5px;
+    margin-top: 10px;
     cursor: pointer;
+    border: 1px solid burlywood;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .filter:hover {
@@ -205,12 +214,12 @@ img {
 .score-table-wrapper {
     background-color: antiquewhite;
     border: 1px solid burlywood;
-    margin: 5px;
 }
 
 .score-table {
     border-top: 1px solid burlywood;
     border-collapse: collapse;
+    width: 400px;
 }
 
 .cell {

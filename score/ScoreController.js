@@ -13,7 +13,7 @@ export class ScoreController {
         this.scoreView.renderScorePage(scoreData);
         this.scoreView.onChangeFilter = (size) => {
             this.clearContainer();
-            this.scoreView.renderScorePage(scoreData, size.substr(0, 1));
+            this.scoreView.renderScorePage(scoreData, size.substr(0, 2).trim());
         };
     }
 

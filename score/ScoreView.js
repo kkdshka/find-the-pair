@@ -3,7 +3,7 @@ export class ScoreView {
         this.container = document.getElementById('container');
     }
 
-    renderScorePage(scoreData, size = 2) {
+    renderScorePage(scoreData, size = '2') {
         this.renderLink();
         this.renderFilters();
         this.renderScoreTable();
