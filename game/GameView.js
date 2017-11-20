@@ -109,9 +109,13 @@ export class GameView {
     }
 
     discard(cards) {
+        this.reverse(cards);
         setTimeout(function () {
-            // cards.forEach(card => card.className = 'flipper in-discard-pile');
-        }, 500);
+            cards.forEach(card => {
+                card.className = 'move';
+                card.className += ' in-discard-pile';
+            });
+        }, 550);
     }
 
     reverse(cards) {
