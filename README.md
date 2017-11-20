@@ -28,3 +28,5 @@ Then find _index.html_ file and run it in your browser.
 ### Issues
 
 Now I did not find out why _npm install_ does not install _babel-loader_.
+
+Project tested using Opera browser, Linux, display size - 1920 x 1080.
